@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:automata/DFA/creation/dfa_enter_transistion_table.dart';
+import 'package:automata/DFA/creation/dfa_enter_transition_table.dart';
 
 class DFACreateManual extends StatefulWidget {
   const DFACreateManual({super.key});
@@ -55,50 +55,50 @@ class _DFACreateManualState extends State<DFACreateManual> {
   final initialStateInputController_ = TextEditingController();
 
   /// TextFormField for alphabet of the DFA. Currently we expect a comma
-  /// seperated list of symbols.
+  /// separated list of symbols.
   Widget alphabetInput() {
     return TextFormField(
       controller: alphabetInputController_,
       decoration: const InputDecoration(
         labelText: "Alphabet",
-        helperText: "Enter symbols seperated by comma(,)",
+        helperText: "Enter symbols separated by comma(,)",
         border: OutlineInputBorder(),
       ),
     );
   }
 
   /// TextFormField for states of the DFA. Currently we expect a comma
-  /// seperated list of symbols
+  /// separated list of symbols
   Widget stateInput() {
     return TextFormField(
       controller: stateInputController_,
       decoration: const InputDecoration(
         labelText: "States",
-        helperText: "Enter states seperated by comna(,)",
+        helperText: "Enter states separated by coma(,)",
         border: OutlineInputBorder(),
       ),
     );
   }
 
   /// TextFormField for accepting states of the DFA. Currently we expect a comma
-  /// seperated list of symbols
+  /// separated list of symbols
   Widget acceptingStateInput() {
     return TextFormField(
       controller: acceptingStateInputController_,
       decoration: const InputDecoration(
         labelText: "Accepting States",
-        helperText: "Enter states seperated by comna(,)",
+        helperText: "Enter states separated by coma(,)",
         border: OutlineInputBorder(),
       ),
     );
   }
 
-  /// TextFormField for intial state of the DFA.
+  /// TextFormField for initial state of the DFA.
   Widget initialStateInput() {
     return TextFormField(
       controller: initialStateInputController_,
       decoration: const InputDecoration(
-        labelText: "Inital States",
+        labelText: "Initial States",
         helperText: "Enter initial state",
         border: OutlineInputBorder(),
       ),
