@@ -23,17 +23,11 @@ class _DFAEnterTransitionTableState extends State<DFAEnterTransitionTable> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Transition function")),
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView.builder(
-                padding: const EdgeInsets.all(8.0),
-                itemBuilder: (BuildContext context, int index) {
-                  return Container();
-                }),
-          ),
-        ],
-      ),
+      body: ListView.builder(
+          padding: const EdgeInsets.all(8.0),
+          itemBuilder: (BuildContext context, int index) {
+            return Container();
+          }),
     );
   }
 
