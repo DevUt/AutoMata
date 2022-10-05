@@ -15,29 +15,37 @@ class _DFACreateManualState extends State<DFACreateManual> {
       appBar: AppBar(
         title: const Text("Manual DFA Creation"),
       ),
-      body: Column(
-        children: [
-          const SizedBox(
-            height: 20,
-          ),
-          alphabetInput(),
-          const SizedBox(
-            height: 20,
-          ),
-          stateInput(),
-          const SizedBox(
-            height: 20,
-          ),
-          acceptingStateInput(),
-          const SizedBox(
-            height: 20,
-          ),
-          initialStateInput(),
-          const SizedBox(
-            height: 20,
-          ),
-          enterTransitionFunctionButton(),
-        ],
+      body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(
+          children: [
+            const SizedBox(
+              width: 100,
+              height: 20,
+            ),
+            alphabetInput(),
+            const SizedBox(
+              width: 100,
+              height: 20,
+            ),
+            stateInput(),
+            const SizedBox(
+              width: 100,
+              height: 20,
+            ),
+            acceptingStateInput(),
+            const SizedBox(
+              width: 100,
+              height: 20,
+            ),
+            initialStateInput(),
+            const SizedBox(
+              width: 100,
+              height: 20,
+            ),
+            enterTransitionFunctionButton(),
+          ],
+        ),
       ),
     );
   }
@@ -109,15 +117,15 @@ class _DFACreateManualState extends State<DFACreateManual> {
   Widget enterTransitionFunctionButton() {
     return ElevatedButton(
       onPressed: () {
-        Navigator.push(
-            context,
+        Navigator.push(this.context,
             MaterialPageRoute(
                 builder: (context) => DFAEnterTransitionTable(
                     alphabet: alphabetInputController_.text.split(","),
                     states: stateInputController_.text.split(","),
                     acceptingStates:
-                        acceptingStateInputController_.text.split(","),
-                    initialState: initialStateInputController_.text)));
+                    acceptingStateInputController_.text.split(","),
+                    initialState: initialStateInputController_.text
+                )));
       },
       child: const Text("Enter Transition table"),
     );
