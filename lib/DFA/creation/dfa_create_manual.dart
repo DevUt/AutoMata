@@ -117,15 +117,15 @@ class _DFACreateManualState extends State<DFACreateManual> {
   Widget enterTransitionFunctionButton() {
     return ElevatedButton(
       onPressed: () {
-        Navigator.push(this.context,
+        Navigator.push(
+            this.context,
             MaterialPageRoute(
                 builder: (context) => DFAEnterTransitionTable(
                     alphabet: alphabetInputController_.text.split(","),
                     states: stateInputController_.text.split(","),
                     acceptingStates:
-                    acceptingStateInputController_.text.split(","),
-                    initialState: initialStateInputController_.text
-                )));
+                        acceptingStateInputController_.text.split(","),
+                    initialState: initialStateInputController_.text)));
       },
       child: const Text("Enter Transition table"),
     );
