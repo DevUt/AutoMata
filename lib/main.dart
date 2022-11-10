@@ -39,7 +39,8 @@ class _HomePageState extends State<HomePage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Center(
-            child: SizedBox(
+            child: Container(
+                margin: EdgeInsets.all(10),
                 width: 200,
                 child: ElevatedButton(
                   onPressed: () {
@@ -52,19 +53,22 @@ class _HomePageState extends State<HomePage> {
                 )),
           ),
           Center(
-            child: SizedBox(
+            child: Container(
+              margin: EdgeInsets.all(10),
               width: 200,
               child: ElevatedButton(onPressed: () {}, child: const Text("NFA")),
             ),
           ),
           Center(
-            child: SizedBox(
+            child: Container(
+              margin: EdgeInsets.all(10),
               width: 200,
               child: ElevatedButton(onPressed: () {}, child: const Text("PDA")),
             ),
           ),
           Center(
-            child: SizedBox(
+            child: Container(
+              margin: EdgeInsets.all(10),
               width: 200,
               child: ElevatedButton(onPressed: () {}, child: const Text("TM")),
             ),
