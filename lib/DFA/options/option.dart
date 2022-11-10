@@ -33,7 +33,7 @@ class _OptionsMenuState extends State<OptionsMenu> {
               margin: const EdgeInsets.all(10),
               child: ListTile(
                   shape: RoundedRectangleBorder(
-                    side: BorderSide(color: Colors.black, width: 1),
+                    side: BorderSide(color: Colors.amber, width: 1),
                     borderRadius: BorderRadius.circular(20),
                   ),
                   leading: Icon(Icons.settings),
@@ -60,7 +60,7 @@ class _OptionsMenuState extends State<OptionsMenu> {
               margin: const EdgeInsets.all(10),
               child: ListTile(
                   shape: RoundedRectangleBorder(
-                    side: BorderSide(color: Colors.black, width: 1),
+                    side: BorderSide(color: Colors.amber, width: 1),
                     borderRadius: BorderRadius.circular(20),
                   ),
                   leading: Icon(Icons.settings),
@@ -118,7 +118,7 @@ class _OptionsMenuState extends State<OptionsMenu> {
               margin: const EdgeInsets.all(10),
               child: ListTile(
                   shape: RoundedRectangleBorder(
-                    side: BorderSide(color: Colors.black, width: 1),
+                    side: BorderSide(color: Colors.amber, width: 1),
                     borderRadius: BorderRadius.circular(20),
                   ),
                   leading: Icon(Icons.settings),
