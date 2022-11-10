@@ -12,11 +12,16 @@ class OptionsMenu extends StatefulWidget {
 
 class _OptionsMenuState extends State<OptionsMenu> {
   bool enableflag = false;
+
   @override
   Widget build(BuildContext context) {
-    TextEditingController readinp = TextEditingController();
-    TextEditingController setout = TextEditingController();
-    TextEditingController outstate = TextEditingController();
+    TextEditingController test_readinp = TextEditingController();
+    TextEditingController test_setout = TextEditingController();
+    TextEditingController test_outstate = TextEditingController();
+
+    TextEditingController step_readinp = TextEditingController();
+    TextEditingController step_setout = TextEditingController();
+    TextEditingController step_outstates = TextEditingController();
 
     return Scaffold(
         appBar: AppBar(
@@ -31,7 +36,7 @@ class _OptionsMenuState extends State<OptionsMenu> {
                     side: BorderSide(color: Colors.black, width: 1),
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  leading: Icon(Icons.account_circle),
+                  leading: Icon(Icons.settings),
                   title: Text('Validate'),
                   subtitle: Text("returns whether dfa is valid or not"),
                   onTap: () {
@@ -54,39 +59,25 @@ class _OptionsMenuState extends State<OptionsMenu> {
             Container(
               margin: const EdgeInsets.all(10),
               child: ListTile(
-                shape: RoundedRectangleBorder(
-                  side: BorderSide(color: Colors.black, width: 1),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                leading: Icon(Icons.account_circle),
-                title: Text('Each stage transitions'),
-                subtitle:
-                    Text("returns step wise transitions for each alphabet"),
-                onTap: () {
-                  print(widget.DFAobj.validate().toString());
-                },
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.all(10),
-              child: ListTile(
                   shape: RoundedRectangleBorder(
                     side: BorderSide(color: Colors.black, width: 1),
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  leading: Icon(Icons.account_circle),
-                  title: Text('Test DFA'),
-                  subtitle: Text("Custom test inputs for your DFA"),
+                  leading: Icon(Icons.settings),
+                  title: Text('Each stage transitions'),
+                  subtitle:
+                      Text("returns step wise transitions for each alphabet"),
                   onTap: () {
                     AlertDialog alert = AlertDialog(
                       title: Container(
                           margin: EdgeInsets.fromLTRB(20, 5, 20, 1),
-                          child: Text('Enter Custom test Inputs')),
+                          child: Text(
+                              'Enter Custom test Input for step wise transitions')),
                       content: Wrap(children: [
                         Column(
                           children: [
                             TextField(
-                              controller: readinp,
+                              controller: step_readinp,
                               decoration: const InputDecoration(
                                 border: OutlineInputBorder(
                                     borderSide: BorderSide(
@@ -98,11 +89,67 @@ class _OptionsMenuState extends State<OptionsMenu> {
                               ),
                             ),
                             TextField(
-                              controller: setout,
+                              controller: step_setout,
+                            ),
+                            TextField(
+                              controller: step_outstates,
+                            ),
+                          ],
+                        ),
+                      ]),
+                      actions: [
+                        ElevatedButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: Text("Back")),
+                        ElevatedButton(
+                            onPressed: () {
+                              step_wise(
+                                  step_readinp, step_setout, step_outstates);
+                            },
+                            child: Text("Go"))
+                      ],
+                    );
+                    showDialog(context: context, builder: (context) => alert);
+                  }),
+            ),
+            Container(
+              margin: const EdgeInsets.all(10),
+              child: ListTile(
+                  shape: RoundedRectangleBorder(
+                    side: BorderSide(color: Colors.black, width: 1),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  leading: Icon(Icons.settings),
+                  title: Text('Test DFA'),
+                  subtitle: Text("Custom test inputs for your DFA"),
+                  onTap: () {
+                    AlertDialog alert = AlertDialog(
+                      title: Container(
+                          margin: EdgeInsets.fromLTRB(20, 5, 20, 1),
+                          child: Text('Enter Custom test Inputs')),
+                      content: Wrap(children: [
+                        Column(
+                          children: [
+                            TextField(
+                              controller: test_readinp,
+                              decoration: const InputDecoration(
+                                border: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                  color: Colors.amber,
+                                )),
+                              ),
+                              style: const TextStyle(
+                                color: Colors.amber,
+                              ),
+                            ),
+                            TextField(
+                              controller: test_setout,
                               enabled: enableflag,
                             ),
                             TextField(
-                              controller: outstate,
+                              controller: test_outstate,
                               enabled: enableflag,
                             ),
                           ],
@@ -116,7 +163,7 @@ class _OptionsMenuState extends State<OptionsMenu> {
                             child: Text("Back")),
                         ElevatedButton(
                             onPressed: () {
-                              test(readinp, setout, outstate);
+                              test(test_readinp, test_setout, test_outstate);
                             },
                             child: Text("Go"))
                       ],
@@ -160,6 +207,21 @@ class _OptionsMenuState extends State<OptionsMenu> {
     } catch (e) {
       setout.text = "Decision : Invalid input";
       outstate.text = "Invalid symbol detected";
+    }
+  }
+
+  void step_wise(TextEditingController step_readinp,
+      TextEditingController step_setout, TextEditingController step_outstates) {
+    String userinput = step_readinp.text;
+    try {
+      List<String> returnval =
+          widget.DFAobj.testStepwiseInput(userinput.split(''));
+      step_setout.text = "The custom input visits these states :-";
+      step_outstates.text = returnval.join(' ');
+      print(returnval);
+    } catch (e) {
+      step_setout.text = "Invalid Output";
+      step_outstates.text = "No states visited";
     }
   }
 }
