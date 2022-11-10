@@ -36,16 +36,39 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(title: Text(widget.title)),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          ElevatedButton.icon(
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const DFACreateManual()));
-              },
-              icon: const Icon(Icons.settings),
-              label: const Text("DFA")),
+          Center(
+            child: SizedBox(
+                width: 200,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const DFACreateManual()));
+                  },
+                  child: const Text("DFA"),
+                )),
+          ),
+          Center(
+            child: SizedBox(
+              width: 200,
+              child: ElevatedButton(onPressed: () {}, child: const Text("NFA")),
+            ),
+          ),
+          Center(
+            child: SizedBox(
+              width: 200,
+              child: ElevatedButton(onPressed: () {}, child: const Text("PDA")),
+            ),
+          ),
+          Center(
+            child: SizedBox(
+              width: 200,
+              child: ElevatedButton(onPressed: () {}, child: const Text("TM")),
+            ),
+          ),
         ],
       ),
     );
