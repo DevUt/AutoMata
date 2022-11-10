@@ -26,11 +26,16 @@ class _DFAEnterTransitionTableState extends State<DFAEnterTransitionTable> {
   late int row, col;
 
   @override
+  void initState() {
+    super.initState();
+    controllers = List.generate((row + 1),
+        (i) => List.generate((col + 1), (i) => TextEditingController()));
+  }
+
+  @override
   Widget build(BuildContext context) {
     row = widget.states.length;
     col = widget.alphabet.length;
-    controllers = List.generate((row + 1),
-        (i) => List.generate((col + 1), (i) => TextEditingController()));
 
     return Scaffold(
       appBar: AppBar(title: const Text("Transition function")),
