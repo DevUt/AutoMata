@@ -8,6 +8,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.9.0"
+  automata_library:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: master
+      resolved-ref: "65a777583cd6f42e04c6fd43ef7c0bd5901ea99b"
+      url: "https://github.com/DevUt/automata_library.git"
+    source: git
+    version: "1.0.0"
   boolean_selector:
     dependency: transitive
     description:
@@ -73,7 +82,7 @@ packages:
       name: lints
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0"
+    version: "2.0.1"
   matcher:
     dependency: transitive
     description:
