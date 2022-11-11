@@ -1,6 +1,8 @@
 import 'package:automata/DFA/options/option.dart';
-import 'package:flutter/material.dart';
+import 'package:automata/widget/transition/transition_table.dart';
 import 'package:automata_library/automata_library.dart';
+import 'package:flutter/material.dart';
+import 'package:linked_scroll_controller/linked_scroll_controller.dart';
 
 class DFAEnterTransitionTable extends StatefulWidget {
   final List<String> alphabet;
@@ -22,72 +24,65 @@ class DFAEnterTransitionTable extends StatefulWidget {
 
 class _DFAEnterTransitionTableState extends State<DFAEnterTransitionTable> {
   late List<List<TextEditingController>> controllers;
-
+  late List<TextEditingController> statesController;
+  late List<TextEditingController> alphabetController;
+  late List<List<TextEditingController>> cellsController;
+  late LinkedScrollControllerGroup _controllers;
+  late ScrollController _headController;
+  late ScrollController _bodyController;
   late int row, col;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Transition function"),
+        actions: [proceedButton(controllers, row, col)],
+      ),
+      body: Column(
+        children: [
+          TableHorizontalHead(
+              scrollController: _headController,
+              horizontalHeaderControllor: controllers[0].sublist(1)),
+          Expanded(
+              child: TransitionTableBody(
+            scrollController: _bodyController,
+            verticalHeaderControllor: statesController,
+            horizontalHeaderControllor: alphabetController,
+            cellsController: cellsController,
+          ))
+        ],
+      ),
+    );
+  }
 
   @override
   void initState() {
     super.initState();
+
+    _controllers = LinkedScrollControllerGroup();
+    _headController = _controllers.addAndGet();
+    _bodyController = _controllers.addAndGet();
+
     row = widget.states.length;
     col = widget.alphabet.length;
 
     controllers = List.generate((row + 1),
         (i) => List.generate((col + 1), (i) => TextEditingController()));
+    loadData(controllers, row, col);
+    statesController =
+        List.generate((row), (index) => controllers[index + 1][0]);
+    alphabetController =
+        List.generate((col), (index) => controllers[0][index + 1]);
+    cellsController =
+        List.generate(row, (index) => controllers[index + 1].sublist(1));
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text("Transition function")),
-      body: Column(
-        children: [
-          SizedBox(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height - 100,
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height - 100,
-                child: GridView.builder(
-                    shrinkWrap: true,
-                    itemCount: (row + 1) * (col + 1),
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisSpacing: 10.0,
-                        mainAxisSpacing: 10.0,
-                        crossAxisCount: col + 1),
-                    itemBuilder: (ctx, index) {
-                      int crow = (index / (col + 1)).floor();
-                      int ccol = index % (col + 1);
-                      Widget cont = SizedBox(
-                        width: 100.0,
-                        height: 100.0,
-                        child: Center(
-                          child: TextField(
-                            enabled: (crow != 0 && ccol != 0) ? true : false,
-                            controller: controllers[crow][ccol],
-                            decoration: const InputDecoration(
-                              border: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                color: Colors.amber,
-                              )),
-                            ),
-                            style: const TextStyle(
-                              color: Colors.amber,
-                            ),
-                          ),
-                        ),
-                      );
-                      loadData(controllers, row, col);
-                      return cont;
-                    }),
-              ),
-            ),
-          ),
-          proceedButton(controllers, row, col),
-        ],
-      ),
-    );
+  void dispose() {
+    _headController.dispose();
+    _bodyController.dispose();
+    super.dispose();
   }
 
   /// Loads the default content for the transition table
