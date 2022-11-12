@@ -13,7 +13,7 @@ packages:
     description:
       path: "."
       ref: master
-      resolved-ref: "65a777583cd6f42e04c6fd43ef7c0bd5901ea99b"
+      resolved-ref: "6daaa935aaafabd16548080ae723775ca765b633"
       url: "https://github.com/DevUt/automata_library.git"
     source: git
     version: "1.0.0"

@@ -117,7 +117,7 @@ class _DFAEnterTransitionTableState extends State<DFAEnterTransitionTable> {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => OptionsMenu(DFAobj: obj)));
+                  builder: (context) => OptionsMenu(dfaObj: obj)));
         },
         child: const Text("Proceed"));
   }
