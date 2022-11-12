@@ -207,6 +207,87 @@ class _OptionsMenuState extends State<OptionsMenu> {
                         });
                   }),
             ),
+            Container(
+              margin: const EdgeInsets.all(10),
+              child: ListTile(
+                  shape: RoundedRectangleBorder(
+                    side: BorderSide(color: Colors.amber, width: 1),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  leading: Icon(Icons.settings),
+                  title: Text('Check for Reachable states'),
+                  subtitle: Text("Gives you the states that are reachable"),
+                  onTap: () {
+                    AlertDialog alert = AlertDialog(
+                      title: Container(
+                          margin: EdgeInsets.fromLTRB(20, 5, 20, 1),
+                          child: Text('Reachable States:-')),
+                      content: reachableStates(),
+                      actions: [
+                        ElevatedButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: Text("Back")),
+                      ],
+                    );
+                    showDialog(context: context, builder: (context) => alert);
+                  }),
+            ),
+            Container(
+              margin: const EdgeInsets.all(10),
+              child: ListTile(
+                  shape: RoundedRectangleBorder(
+                    side: BorderSide(color: Colors.amber, width: 1),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  leading: Icon(Icons.settings),
+                  title: Text('Check for Unreachable states'),
+                  subtitle: Text("Gives you the states that are Unreachable"),
+                  onTap: () {
+                    AlertDialog alert = AlertDialog(
+                      title: Container(
+                          margin: EdgeInsets.fromLTRB(20, 5, 20, 1),
+                          child: Text('Unreachable States :-')),
+                      content: unreachableStates(),
+                      actions: [
+                        ElevatedButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: Text("Back")),
+                      ],
+                    );
+                    showDialog(context: context, builder: (context) => alert);
+                  }),
+            ),
+            Container(
+              margin: const EdgeInsets.all(10),
+              child: ListTile(
+                  shape: RoundedRectangleBorder(
+                    side: BorderSide(color: Colors.amber, width: 1),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  leading: Icon(Icons.settings),
+                  title: Text('Check for Dead states'),
+                  subtitle: Text("Gives you the states that are Dead"),
+                  onTap: () {
+                    AlertDialog alert = AlertDialog(
+                      title: Container(
+                          margin: EdgeInsets.fromLTRB(20, 5, 20, 1),
+                          child: Text('Dead States :-')),
+                      content: deadStates(),
+                      actions: [
+                        ElevatedButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: Text("Back")),
+                      ],
+                    );
+                    showDialog(context: context, builder: (context) => alert);
+                  }),
+            ),
           ],
         ));
   }
@@ -253,8 +334,45 @@ class _OptionsMenuState extends State<OptionsMenu> {
       step_setout.text = "The custom input visits these states :-";
       step_outstates.text = returnval.join(' ');
     } catch (e) {
-      step_setout.text = "Invalid Output";
+      step_setout.text = "Invalid Input";
       step_outstates.text = "No states visited";
     }
+  }
+
+  Widget reachableStates() {
+    String reachableState = widget.DFAobj.computeReachableStates().join(' ');
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(reachableState),
+      ],
+    );
+  }
+
+  Widget unreachableStates() {
+    Set<String> reachableStateToConvert =
+        widget.DFAobj.computeReachableStates();
+    String unreachableState =
+        widget.DFAobj.states.difference(reachableStateToConvert).join(' ');
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        unreachableState.isEmpty
+            ? Text("Empty", style: TextStyle(color: Colors.red))
+            : Text(unreachableState)
+      ],
+    );
+  }
+
+  Widget deadStates() {
+    String deadState = widget.DFAobj.computeDeadStates().join(' ');
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        deadState.isEmpty
+            ? Text("Empty", style: TextStyle(color: Colors.red))
+            : Text(deadState)
+      ],
+    );
   }
 }
