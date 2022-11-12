@@ -118,7 +118,7 @@ class _DFACreateManualState extends State<DFACreateManual> {
     return ElevatedButton(
       onPressed: () {
         Navigator.push(
-            this.context,
+            context,
             MaterialPageRoute(
                 builder: (context) => DFAEnterTransitionTable(
                     alphabet: alphabetInputController_.text.split(","),

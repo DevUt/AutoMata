@@ -40,7 +40,7 @@ class _HomePageState extends State<HomePage> {
         children: [
           Center(
             child: Container(
-                margin: EdgeInsets.all(10),
+                margin: const EdgeInsets.all(10),
                 width: 200,
                 child: ElevatedButton(
                   onPressed: () {
@@ -54,21 +54,21 @@ class _HomePageState extends State<HomePage> {
           ),
           Center(
             child: Container(
-              margin: EdgeInsets.all(10),
+              margin: const EdgeInsets.all(10),
               width: 200,
               child: ElevatedButton(onPressed: () {}, child: const Text("NFA")),
             ),
           ),
           Center(
             child: Container(
-              margin: EdgeInsets.all(10),
+              margin: const EdgeInsets.all(10),
               width: 200,
               child: ElevatedButton(onPressed: () {}, child: const Text("PDA")),
             ),
           ),
           Center(
             child: Container(
-              margin: EdgeInsets.all(10),
+              margin: const EdgeInsets.all(10),
               width: 200,
               child: ElevatedButton(onPressed: () {}, child: const Text("TM")),
             ),
