@@ -114,7 +114,6 @@ class _NFAEnterTransitionTableState extends State<NFAEnterTransitionTable> {
           }
           transFn.addAll({controllers[i][0].text: innerMap});
         }
-        print(transFn);
         NFA obj = NFA(
             alphabet: (widget.alphabet).toSet(),
             initialState: widget.initialState,
