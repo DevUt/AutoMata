@@ -71,6 +71,7 @@ class _NFAEnterTransitionTableState extends State<NFAEnterTransitionTable> {
     _headController = _controllers.addAndGet();
     _bodyController = _controllers.addAndGet();
 
+    widget.alphabet.insert(0, 'ε');
     row = widget.states.length;
     col = widget.alphabet.length;
 
@@ -106,13 +107,14 @@ class _NFAEnterTransitionTableState extends State<NFAEnterTransitionTable> {
           for (int j = 1; j < (col + 1); j++) {
             if (controllers[i][j].text.isNotEmpty) {
               innerMap.addAll({
-                controllers[0][j].text:
+                j == 1 ? "" : controllers[0][j].text:
                     controllers[i][j].text.split(',').toSet()
               });
             }
           }
           transFn.addAll({controllers[i][0].text: innerMap});
         }
+        print(transFn);
         NFA obj = NFA(
             alphabet: (widget.alphabet).toSet(),
             initialState: widget.initialState,
