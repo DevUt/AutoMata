@@ -200,7 +200,8 @@ class _OptionsMenuState extends State<OptionsMenu> {
                                       setState(() {
                                         testEnableFlag = true;
                                       });
-                                      //test(test_readinp, test_setout,test_outstate);
+                                      test(testReadinp, testSetout,
+                                          testOutstate);
                                     },
                                     child: const Text("Go"))
                               ],
@@ -313,20 +314,22 @@ class _OptionsMenuState extends State<OptionsMenu> {
     );
   }
 
-  /*void test(TextEditingController readinp, TextEditingController setout,
+  void test(TextEditingController readinp, TextEditingController setout,
       TextEditingController outstate) {
     String userinput = readinp.text;
 
     try {
-      Set <String>? exitstate = widget.NFAobj.testInput(userinput.split(''));
-      Set <String>? ans = widget.NFAobj.testInput(exitstate.toList());
-      setout.text = (ans) ? "Decision : Accepted" : "Decision : Rejected";
-      outstate.text = "Custom input ended on state $exitstate";
+      Set<String> exitStates = widget.nfaObj.testInput(userinput.split(''));
+      setout.text =
+          (widget.nfaObj.acceptingStates.intersection(exitStates).isNotEmpty)
+              ? "Decision : Accepted"
+              : "Decision : Rejected";
+      outstate.text = "Custom input ended on state $exitStates";
     } catch (e) {
       setout.text = "Decision : Invalid input";
       outstate.text = "Invalid symbol detected";
     }
-  }*/
+  }
 
   void stepWiseInputTest(TextEditingController stepReadinp,
       TextEditingController stepSetout, TextEditingController stepOutstates) {
