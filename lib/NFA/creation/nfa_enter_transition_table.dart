@@ -57,6 +57,13 @@ class _NFAEnterTransitionTableState extends State<NFAEnterTransitionTable> {
   }
 
   @override
+  void dispose() {
+    _headController.dispose();
+    _bodyController.dispose();
+    super.dispose();
+  }
+
+  @override
   void initState() {
     super.initState();
 
@@ -78,13 +85,6 @@ class _NFAEnterTransitionTableState extends State<NFAEnterTransitionTable> {
         List.generate(row, (index) => controllers[index + 1].sublist(1));
   }
 
-  @override
-  void dispose() {
-    _headController.dispose();
-    _bodyController.dispose();
-    super.dispose();
-  }
-
   /// Loads the default content for the transition table
   void loadData(
       List<List<TextEditingController>> controllers, int row, int col) {
@@ -98,32 +98,34 @@ class _NFAEnterTransitionTableState extends State<NFAEnterTransitionTable> {
 
   Widget proceedButton(
       List<List<TextEditingController>> controllers, int row, int col) {
-    return ElevatedButton(
-        onPressed: () {
-          Map<String, Map<String, Set<String>>> transFn = {};
-          for (int i = 1; i < (row + 1); i++) {
-            Map<String, Set<String>> innerMap = {};
-            for (int j = 1; j < (col + 1); j++) {
-              if (controllers[i][j].text.isNotEmpty) {
-                innerMap.addAll({
-                  controllers[0][j].text:
-                      controllers[i][j].text.split(',').toSet()
-                });
-              }
+    return IconButton(
+      onPressed: () {
+        Map<String, Map<String, Set<String>>> transFn = {};
+        for (int i = 1; i < (row + 1); i++) {
+          Map<String, Set<String>> innerMap = {};
+          for (int j = 1; j < (col + 1); j++) {
+            if (controllers[i][j].text.isNotEmpty) {
+              innerMap.addAll({
+                controllers[0][j].text:
+                    controllers[i][j].text.split(',').toSet()
+              });
             }
-            transFn.addAll({controllers[i][0].text: innerMap});
           }
-          NFA obj = NFA(
-              alphabet: (widget.alphabet).toSet(),
-              initialState: widget.initialState,
-              acceptingStates: (widget.acceptingStates).toSet(),
-              states: (widget.states).toSet(),
-              transitionFunction: transFn);
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => OptionsMenu(nfaObj: obj)));
-        },
-        child: const Text("Proceed"));
+          transFn.addAll({controllers[i][0].text: innerMap});
+        }
+        NFA obj = NFA(
+            alphabet: (widget.alphabet).toSet(),
+            initialState: widget.initialState,
+            acceptingStates: (widget.acceptingStates).toSet(),
+            states: (widget.states).toSet(),
+            transitionFunction: transFn);
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => OptionsMenu(nfaObj: obj)));
+      },
+      icon: const Icon(
+        Icons.check,
+        color: Colors.amber,
+      ),
+    );
   }
 }
