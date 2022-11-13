@@ -98,7 +98,7 @@ class _DFAEnterTransitionTableState extends State<DFAEnterTransitionTable> {
 
   Widget proceedButton(
       List<List<TextEditingController>> controllers, int row, int col) {
-    return ElevatedButton(
+    return IconButton(
         onPressed: () {
           Map<String, Map<String, String>> transFn = {};
           for (int i = 1; i < (row + 1); i++) {
@@ -119,6 +119,9 @@ class _DFAEnterTransitionTableState extends State<DFAEnterTransitionTable> {
               MaterialPageRoute(
                   builder: (context) => OptionsMenu(dfaObj: obj)));
         },
-        child: const Text("Proceed"));
+        icon: const Icon(
+          Icons.check,
+          color: Colors.amber,
+        ));
   }
 }
