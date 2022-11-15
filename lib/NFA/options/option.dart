@@ -14,6 +14,7 @@ class OptionsMenu extends StatefulWidget {
 class _OptionsMenuState extends State<OptionsMenu> {
   bool testEnableFlag = false;
   bool stepEnableFlag = false;
+  bool epsilonClosureField = false;
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +25,9 @@ class _OptionsMenuState extends State<OptionsMenu> {
     TextEditingController stepReadinp = TextEditingController();
     TextEditingController stepSetout = TextEditingController();
     TextEditingController stepOutstates = TextEditingController();
+
+    TextEditingController epsilonClosureState = TextEditingController();
+    TextEditingController epsilonClosureOutput = TextEditingController();
 
     return Scaffold(
         appBar: AppBar(
@@ -312,6 +316,75 @@ class _OptionsMenuState extends State<OptionsMenu> {
                     }));
                   }),
             ),
+            Container(
+              margin: const EdgeInsets.all(10),
+              child: ListTile(
+                  shape: RoundedRectangleBorder(
+                    side: const BorderSide(color: Colors.amber, width: 1),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  leading: const Icon(Icons.settings),
+                  title: const Text('Epsilon Closure for specific state'),
+                  subtitle: const Text(
+                      "Gives you the epsilon closure of a specific state"),
+                  onTap: () {
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return StatefulBuilder(builder: (context, setState) {
+                            return AlertDialog(
+                              title: Container(
+                                  margin:
+                                      const EdgeInsets.fromLTRB(20, 5, 20, 1),
+                                  child: const Text('Enter input state')),
+                              content: Wrap(children: [
+                                Column(
+                                  children: [
+                                    TextField(
+                                      controller: epsilonClosureState,
+                                      decoration: const InputDecoration(
+                                        border: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                          color: Colors.amber,
+                                        )),
+                                      ),
+                                      style: const TextStyle(
+                                        color: Colors.amber,
+                                      ),
+                                    ),
+                                    Visibility(
+                                      visible: epsilonClosureField,
+                                      child: TextField(
+                                        controller: epsilonClosureOutput,
+                                        enabled: true,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ]),
+                              actions: [
+                                ElevatedButton(
+                                    onPressed: () {
+                                      epsilonClosureState.clear();
+                                      epsilonClosureField = false;
+                                      Navigator.pop(context);
+                                    },
+                                    child: const Text("Back")),
+                                ElevatedButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        epsilonClosureField = true;
+                                      });
+                                      epsilonClosure(epsilonClosureState,
+                                          epsilonClosureOutput);
+                                    },
+                                    child: const Text("Go"))
+                              ],
+                            );
+                          });
+                        });
+                  }),
+            ),
           ],
         ));
   }
@@ -400,5 +473,16 @@ class _OptionsMenuState extends State<OptionsMenu> {
             : Text(deadState)
       ],
     );
+  }
+
+  void epsilonClosure(TextEditingController epsilonClosureState,
+      TextEditingController epsilonClosureOutput) {
+    String epsilonClosureInput = epsilonClosureState.text;
+    try {
+      epsilonClosureOutput.text =
+          widget.nfaObj.epsilonClosureOfState(epsilonClosureInput).toString();
+    } catch (e) {
+      epsilonClosureOutput.text = "Invalid Input";
+    }
   }
 }

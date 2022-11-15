@@ -114,14 +114,37 @@ class _NFAEnterTransitionTableState extends State<NFAEnterTransitionTable> {
           }
           transFn.addAll({controllers[i][0].text: innerMap});
         }
-        NFA obj = NFA(
-            alphabet: (widget.alphabet).toSet().difference({'ε'}),
-            initialState: widget.initialState,
-            acceptingStates: (widget.acceptingStates).toSet(),
-            states: (widget.states).toSet(),
-            transitionFunction: transFn);
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => OptionsMenu(nfaObj: obj)));
+        try {
+          NFA obj = NFA(
+              alphabet: (widget.alphabet).toSet().difference({'ε'}),
+              initialState: widget.initialState,
+              acceptingStates: (widget.acceptingStates).toSet(),
+              states: (widget.states).toSet(),
+              transitionFunction: transFn);
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => OptionsMenu(nfaObj: obj)));
+        } catch (e) {
+          AlertDialog alert = AlertDialog(
+            title: Container(
+                margin: const EdgeInsets.fromLTRB(20, 5, 20, 1),
+                child: const Text('Invalid NFA input')),
+            actions: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Text("OK")),
+                ],
+              )
+            ],
+          );
+          showDialog(context: context, builder: (context) => alert);
+        }
       },
       icon: const Icon(
         Icons.check,
