@@ -1,14 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:automata_library/automata_library.dart';
 import 'package:automata/DFA/creation/dfa_enter_transition_table.dart';
 
 class DFACreateManual extends StatefulWidget {
-  const DFACreateManual({super.key});
+  DFA? dfa ;
+  DFACreateManual({super.key , this.dfa});
 
   @override
   State<DFACreateManual> createState() => _DFACreateManualState();
 }
 
 class _DFACreateManualState extends State<DFACreateManual> {
+   ///boolean flag to enable/disable the controllers
+  bool enableFlag = true;
+   ///Controller for alphabet input
+  final alphabetInputController_ = TextEditingController();
+  ///Controller for state Input
+  final stateInputController_ = TextEditingController();
+
+  ///Controller for accepting state input
+  final acceptingStateInputController_ = TextEditingController();
+
+  ///Controller for accepting state input
+  final initialStateInputController_ = TextEditingController();
+
+  @override
+  initState(){
+    super.initState();
+    if(widget.dfa!=null){
+      enableFlag = false;
+      alphabetInputController_.text = widget.dfa!.alphabet.join(',');
+      stateInputController_.text = widget.dfa!.states.join(',');
+      acceptingStateInputController_.text = widget.dfa!.acceptingStates.join(',');
+      initialStateInputController_.text = widget.dfa!.initialState;
+
+    }
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,23 +78,12 @@ class _DFACreateManualState extends State<DFACreateManual> {
     );
   }
 
-  ///Controller for alphabet input
-  final alphabetInputController_ = TextEditingController();
-
-  ///Controller for state Input
-  final stateInputController_ = TextEditingController();
-
-  ///Controller for accepting state input
-  final acceptingStateInputController_ = TextEditingController();
-
-  ///Controller for accepting state input
-  final initialStateInputController_ = TextEditingController();
-
   /// TextFormField for alphabet of the DFA. Currently we expect a comma
   /// separated list of symbols.
   Widget alphabetInput() {
     return TextFormField(
       controller: alphabetInputController_,
+      enabled: enableFlag,
       decoration: const InputDecoration(
         labelText: "Alphabet",
         helperText: "Enter symbols separated by comma(,)",
@@ -80,6 +97,7 @@ class _DFACreateManualState extends State<DFACreateManual> {
   Widget stateInput() {
     return TextFormField(
       controller: stateInputController_,
+      enabled: enableFlag,
       decoration: const InputDecoration(
         labelText: "States",
         helperText: "Enter states separated by coma(,)",
@@ -93,6 +111,7 @@ class _DFACreateManualState extends State<DFACreateManual> {
   Widget acceptingStateInput() {
     return TextFormField(
       controller: acceptingStateInputController_,
+      enabled: enableFlag,
       decoration: const InputDecoration(
         labelText: "Accepting States",
         helperText: "Enter states separated by coma(,)",
@@ -105,6 +124,7 @@ class _DFACreateManualState extends State<DFACreateManual> {
   Widget initialStateInput() {
     return TextFormField(
       controller: initialStateInputController_,
+      enabled: enableFlag,
       decoration: const InputDecoration(
         labelText: "Initial States",
         helperText: "Enter initial state",
@@ -125,7 +145,8 @@ class _DFACreateManualState extends State<DFACreateManual> {
                     states: stateInputController_.text.split(","),
                     acceptingStates:
                         acceptingStateInputController_.text.split(","),
-                    initialState: initialStateInputController_.text)));
+                    initialState: initialStateInputController_.text,
+                    dfa: widget.dfa)));
       },
       child: const Text("Enter Transition table"),
     );

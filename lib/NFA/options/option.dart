@@ -1,3 +1,4 @@
+import 'package:automata/DFA/creation/dfa_create_manual.dart';
 import 'package:automata_library/automata_library.dart';
 import 'package:flutter/material.dart';
 
@@ -291,6 +292,31 @@ class _OptionsMenuState extends State<OptionsMenu> {
                       ],
                     );
                     showDialog(context: context, builder: (context) => alert);
+                  }),
+            ),
+            Container(
+              margin: const EdgeInsets.all(10),
+              child: ListTile(
+                  shape: RoundedRectangleBorder(
+                    side: const BorderSide(color: Colors.amber, width: 1),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  leading: const Icon(Icons.settings),
+                  title: const Text('Convert NFA to DFA'),
+                  subtitle: const Text("Gives you the DFA conversion of NFA"),
+                  onTap: () {
+                    
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                          /*print(widget.nfaObj.convertNfaToDfa().transitionFunction);
+                          print('');
+                          print(widget.nfaObj.acceptingStates);
+                          print(widget.nfaObj.states);
+                          print(widget.nfaObj.initialState);
+                          print(widget.nfaObj.alphabet);
+                          print(widget.nfaObj.transitionFunction);*/
+                      return DFACreateManual(dfa: widget.nfaObj.convertNfaToDfa());
+                    }));
                   }),
             ),
           ],

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:linked_scroll_controller/linked_scroll_controller.dart';
 
 class DFAEnterTransitionTable extends StatefulWidget {
+  final DFA? dfa;
   final List<String> alphabet;
   final List<String> states;
   final List<String> acceptingStates;
@@ -15,7 +16,8 @@ class DFAEnterTransitionTable extends StatefulWidget {
       required this.alphabet,
       required this.states,
       required this.acceptingStates,
-      required this.initialState});
+      required this.initialState,
+      required this.dfa});
 
   @override
   State<DFAEnterTransitionTable> createState() =>
@@ -59,7 +61,6 @@ class _DFAEnterTransitionTableState extends State<DFAEnterTransitionTable> {
   @override
   void initState() {
     super.initState();
-
     _controllers = LinkedScrollControllerGroup();
     _headController = _controllers.addAndGet();
     _bodyController = _controllers.addAndGet();
@@ -76,6 +77,20 @@ class _DFAEnterTransitionTableState extends State<DFAEnterTransitionTable> {
         List.generate((col), (index) => controllers[0][index + 1]);
     cellsController =
         List.generate(row, (index) => controllers[index + 1].sublist(1));
+    if(widget.dfa!=null){
+      for(int i=0;i<alphabetController.length;i++){
+        alphabetController[i].text = widget.dfa!.alphabet.elementAt(i);
+      }
+      for(int i=0;i<statesController.length;i++){
+        statesController[i].text = widget.dfa!.states.elementAt(i);
+      }
+
+      for(int i=0; i<(statesController.length);i++){
+        for(int j=0;j<(alphabetController.length);j++){
+          cellsController[i][j].text = widget.dfa!.transitionFunction[statesController[i].text]![alphabetController[j].text]!;
+        }
+      }
+    }
   }
 
   @override
