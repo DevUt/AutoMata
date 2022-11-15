@@ -48,7 +48,7 @@ class _HomePageState extends State<HomePage> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) =>  DFACreateManual()));
+                            builder: (context) => DFACreateManual()));
                   },
                   child: const Text("DFA"),
                 )),

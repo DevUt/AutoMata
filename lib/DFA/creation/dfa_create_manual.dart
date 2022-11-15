@@ -3,18 +3,20 @@ import 'package:automata_library/automata_library.dart';
 import 'package:automata/DFA/creation/dfa_enter_transition_table.dart';
 
 class DFACreateManual extends StatefulWidget {
-  DFA? dfa ;
-  DFACreateManual({super.key , this.dfa});
+  DFA? dfa;
+  DFACreateManual({super.key, this.dfa});
 
   @override
   State<DFACreateManual> createState() => _DFACreateManualState();
 }
 
 class _DFACreateManualState extends State<DFACreateManual> {
-   ///boolean flag to enable/disable the controllers
+  ///boolean flag to enable/disable the controllers
   bool enableFlag = true;
-   ///Controller for alphabet input
+
+  ///Controller for alphabet input
   final alphabetInputController_ = TextEditingController();
+
   ///Controller for state Input
   final stateInputController_ = TextEditingController();
 
@@ -25,18 +27,18 @@ class _DFACreateManualState extends State<DFACreateManual> {
   final initialStateInputController_ = TextEditingController();
 
   @override
-  initState(){
+  initState() {
     super.initState();
-    if(widget.dfa!=null){
+    if (widget.dfa != null) {
       enableFlag = false;
       alphabetInputController_.text = widget.dfa!.alphabet.join(',');
       stateInputController_.text = widget.dfa!.states.join(',');
-      acceptingStateInputController_.text = widget.dfa!.acceptingStates.join(',');
+      acceptingStateInputController_.text =
+          widget.dfa!.acceptingStates.join(',');
       initialStateInputController_.text = widget.dfa!.initialState;
-
     }
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

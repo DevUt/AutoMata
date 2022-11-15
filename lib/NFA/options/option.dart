@@ -305,17 +305,10 @@ class _OptionsMenuState extends State<OptionsMenu> {
                   title: const Text('Convert NFA to DFA'),
                   subtitle: const Text("Gives you the DFA conversion of NFA"),
                   onTap: () {
-                    
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
-                          /*print(widget.nfaObj.convertNfaToDfa().transitionFunction);
-                          print('');
-                          print(widget.nfaObj.acceptingStates);
-                          print(widget.nfaObj.states);
-                          print(widget.nfaObj.initialState);
-                          print(widget.nfaObj.alphabet);
-                          print(widget.nfaObj.transitionFunction);*/
-                      return DFACreateManual(dfa: widget.nfaObj.convertNfaToDfa());
+                      return DFACreateManual(
+                          dfa: widget.nfaObj.convertNfaToDfa());
                     }));
                   }),
             ),
