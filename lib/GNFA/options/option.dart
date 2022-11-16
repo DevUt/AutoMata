@@ -3,9 +3,9 @@ import 'package:automata_library/automata_library.dart';
 import 'package:flutter/material.dart';
 
 class OptionsMenu extends StatefulWidget {
-  final NFA nfaObj;
+  final GNFA gnfaObj;
 
-  const OptionsMenu({Key? key, required this.nfaObj}) : super(key: key);
+  const OptionsMenu({Key? key, required this.gnfaObj}) : super(key: key);
 
   @override
   _OptionsMenuState createState() => _OptionsMenuState();
@@ -31,7 +31,7 @@ class _OptionsMenuState extends State<OptionsMenu> {
 
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Operations on NFA"),
+          title: const Text("Operations on GNFA"),
         ),
         body: ListView(
           children: <Widget>[
@@ -44,12 +44,12 @@ class _OptionsMenuState extends State<OptionsMenu> {
                   ),
                   leading: const Icon(Icons.settings),
                   title: const Text('Validate'),
-                  subtitle: const Text("returns whether nfa is valid or not"),
+                  subtitle: const Text("returns whether gnfa is valid or not"),
                   onTap: () {
                     AlertDialog alert = AlertDialog(
                       title: Container(
                           margin: const EdgeInsets.fromLTRB(20, 5, 20, 1),
-                          child: const Text('NFA Validation result')),
+                          child: const Text('GNFA Validation result')),
                       content: decide(),
                       actions: [
                         ElevatedButton(
@@ -147,8 +147,8 @@ class _OptionsMenuState extends State<OptionsMenu> {
                     borderRadius: BorderRadius.circular(20),
                   ),
                   leading: const Icon(Icons.settings),
-                  title: const Text('Test NFA'),
-                  subtitle: const Text("Custom test inputs for your NFA"),
+                  title: const Text('Test GNFA'),
+                  subtitle: const Text("Custom test inputs for your GNFA"),
                   onTap: () {
                     showDialog(
                         context: context,
@@ -306,13 +306,13 @@ class _OptionsMenuState extends State<OptionsMenu> {
                     borderRadius: BorderRadius.circular(20),
                   ),
                   leading: const Icon(Icons.settings),
-                  title: const Text('Convert NFA to DFA'),
+                  title: const Text('Convert GNFA to DFA'),
                   subtitle: const Text("Gives you the DFA conversion of NFA"),
                   onTap: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
                       return DFACreateManual(
-                          dfa: widget.nfaObj.convertNfaToDfa());
+                          dfa: widget.gnfaObj.convertNfaToDfa());
                     }));
                   }),
             ),
@@ -395,7 +395,7 @@ class _OptionsMenuState extends State<OptionsMenu> {
                   leading: const Icon(Icons.settings),
                   title: const Text('Generate Regex'),
                   subtitle: const Text(
-                      "Gives you the regular expression for your DFA"),
+                      "Gives you the regular expression for your GNFA"),
                   onTap: () {
                     AlertDialog alert = AlertDialog(
                       title: Container(
@@ -407,7 +407,7 @@ class _OptionsMenuState extends State<OptionsMenu> {
                             onPressed: () {
                               Navigator.pop(context);
                             },
-                            child: const Text("OK"))
+                            child: const Text("Back")),
                       ],
                     );
                     showDialog(context: context, builder: (context) => alert);
@@ -418,7 +418,7 @@ class _OptionsMenuState extends State<OptionsMenu> {
   }
 
   Widget decide() {
-    if (widget.nfaObj.validate()) {
+    if (widget.gnfaObj.validate()) {
       return Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: const [
@@ -439,9 +439,9 @@ class _OptionsMenuState extends State<OptionsMenu> {
     String userinput = readinp.text;
 
     try {
-      Set<String> exitStates = widget.nfaObj.testInput(userinput.split(''));
+      Set<String> exitStates = widget.gnfaObj.testInput(userinput.split(''));
       setout.text =
-          (widget.nfaObj.acceptingStates.intersection(exitStates).isNotEmpty)
+          (widget.gnfaObj.acceptingStates.intersection(exitStates).isNotEmpty)
               ? "Decision : Accepted"
               : "Decision : Rejected";
       outstate.text = "Custom input ended on state $exitStates";
@@ -457,7 +457,7 @@ class _OptionsMenuState extends State<OptionsMenu> {
 
     try {
       Set<Set<String>> returnval =
-          widget.nfaObj.testStepWiseInput(userinput.split(''));
+          widget.gnfaObj.testStepWiseInput(userinput.split(''));
       stepSetout.text = "The custom input visits these states :-";
       stepOutstates.text = returnval.join(' ');
     } catch (e) {
@@ -467,7 +467,7 @@ class _OptionsMenuState extends State<OptionsMenu> {
   }
 
   Widget reachableStates() {
-    String reachableState = widget.nfaObj.computeReachableStates().join(' ');
+    String reachableState = widget.gnfaObj.computeReachableStates().join(' ');
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -478,9 +478,9 @@ class _OptionsMenuState extends State<OptionsMenu> {
 
   Widget unreachableStates() {
     Set<String> reachableStateToConvert =
-        widget.nfaObj.computeReachableStates();
+        widget.gnfaObj.computeReachableStates();
     String unreachableState =
-        widget.nfaObj.states.difference(reachableStateToConvert).join(' ');
+        widget.gnfaObj.states.difference(reachableStateToConvert).join(' ');
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -492,7 +492,7 @@ class _OptionsMenuState extends State<OptionsMenu> {
   }
 
   Widget deadStates() {
-    String deadState = widget.nfaObj.computeDeadStates().join(' ');
+    String deadState = widget.gnfaObj.computeDeadStates().join(' ');
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -508,14 +508,14 @@ class _OptionsMenuState extends State<OptionsMenu> {
     String epsilonClosureInput = epsilonClosureState.text;
     try {
       epsilonClosureOutput.text =
-          widget.nfaObj.epsilonClosureOfState(epsilonClosureInput).toString();
+          widget.gnfaObj.epsilonClosureOfState(epsilonClosureInput).toString();
     } catch (e) {
       epsilonClosureOutput.text = "Invalid Input";
     }
   }
 
   Widget Regex() {
-    String regex = GNFA.fromNfa(widget.nfaObj).regex();
+    String regex = widget.gnfaObj.regex();
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
