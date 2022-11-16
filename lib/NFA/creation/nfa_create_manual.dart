@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:automata/NFA/creation/nfa_enter_transition_table.dart';
 
+import '../../widget/helper.dart';
+
 class NFACreateManual extends StatefulWidget {
   const NFACreateManual({super.key});
 
@@ -13,7 +15,7 @@ class _NFACreateManualState extends State<NFACreateManual> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Manual NFA Creation"),
+        title: amberText("Manual NFA Creation"),
       ),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,

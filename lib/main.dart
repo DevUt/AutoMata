@@ -36,67 +36,98 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(widget.title)),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Center(
-            child: Container(
-                margin: const EdgeInsets.all(10),
-                width: 200,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => DFACreateManual()));
-                  },
-                  child: const Text("DFA"),
-                )),
+      body: Center(
+        child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const SizedBox(
+                  width: 300,
+                  height: 300,
+                  child: Image(image: AssetImage('assets/insidelogo.png'))),
+              Center(
+                child: Container(
+                    margin: const EdgeInsets.all(10),
+                    width: 200,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => DFACreateManual()));
+                      },
+                      child: const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Text(style: TextStyle(fontSize: 15), "DFA"),
+                      ),
+                    )),
+              ),
+              Center(
+                child: Container(
+                  margin: const EdgeInsets.all(10),
+                  width: 200,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const NFACreateManual()));
+                    },
+                    child: const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text(style: TextStyle(fontSize: 15), "NFA"),
+                    ),
+                  ),
+                ),
+              ),
+              Center(
+                child: Container(
+                  margin: const EdgeInsets.all(10),
+                  width: 200,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const GNFACreateManual()));
+                    },
+                    child: const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text(style: TextStyle(fontSize: 15), "GNFA"),
+                    ),
+                  ),
+                ),
+              ),
+              Center(
+                child: Container(
+                  margin: const EdgeInsets.all(10),
+                  width: 200,
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    child: const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text(style: TextStyle(fontSize: 15), "PDA"),
+                    ),
+                  ),
+                ),
+              ),
+              Center(
+                child: Container(
+                  margin: const EdgeInsets.all(10),
+                  width: 200,
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    child: const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text(style: TextStyle(fontSize: 15), "TM"),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
-          Center(
-            child: Container(
-              margin: const EdgeInsets.all(10),
-              width: 200,
-              child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const NFACreateManual()));
-                  },
-                  child: const Text("NFA")),
-            ),
-          ),
-          Center(
-            child: Container(
-              margin: const EdgeInsets.all(10),
-              width: 200,
-              child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const GNFACreateManual()));
-                  },
-                  child: const Text("GNFA")),
-            ),
-          ),
-          Center(
-            child: Container(
-              margin: const EdgeInsets.all(10),
-              width: 200,
-              child: ElevatedButton(onPressed: () {}, child: const Text("PDA")),
-            ),
-          ),
-          Center(
-            child: Container(
-              margin: const EdgeInsets.all(10),
-              width: 200,
-              child: ElevatedButton(onPressed: () {}, child: const Text("TM")),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }

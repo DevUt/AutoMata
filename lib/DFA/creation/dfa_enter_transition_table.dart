@@ -1,4 +1,5 @@
 import 'package:automata/DFA/options/option.dart';
+import 'package:automata/widget/helper.dart';
 import 'package:automata/widget/transition/transition_table.dart';
 import 'package:automata_library/automata_library.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +39,7 @@ class _DFAEnterTransitionTableState extends State<DFAEnterTransitionTable> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Transition function"),
+        title: amberText("Enter Transition Table"),
         actions: [proceedButton(controllers, row, col)],
       ),
       body: Column(

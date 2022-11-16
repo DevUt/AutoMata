@@ -1,3 +1,4 @@
+import 'package:automata/widget/helper.dart';
 import 'package:flutter/material.dart';
 import 'package:automata_library/automata_library.dart';
 import 'package:automata/DFA/creation/dfa_enter_transition_table.dart';
@@ -43,38 +44,41 @@ class _DFACreateManualState extends State<DFACreateManual> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Manual DFA Creation"),
+        title: amberText("Manual DFA Creation"),
       ),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
-        child: Column(
-          children: [
-            const SizedBox(
-              width: 100,
-              height: 20,
-            ),
-            alphabetInput(),
-            const SizedBox(
-              width: 100,
-              height: 20,
-            ),
-            stateInput(),
-            const SizedBox(
-              width: 100,
-              height: 20,
-            ),
-            acceptingStateInput(),
-            const SizedBox(
-              width: 100,
-              height: 20,
-            ),
-            initialStateInput(),
-            const SizedBox(
-              width: 100,
-              height: 20,
-            ),
-            enterTransitionFunctionButton(),
-          ],
+        child: Container(
+          margin: EdgeInsets.all(12),
+          child: Column(
+            children: [
+              const SizedBox(
+                width: 100,
+                height: 20,
+              ),
+              alphabetInput(),
+              const SizedBox(
+                width: 100,
+                height: 20,
+              ),
+              stateInput(),
+              const SizedBox(
+                width: 100,
+                height: 20,
+              ),
+              acceptingStateInput(),
+              const SizedBox(
+                width: 100,
+                height: 20,
+              ),
+              initialStateInput(),
+              const SizedBox(
+                width: 100,
+                height: 20,
+              ),
+              enterTransitionFunctionButton(),
+            ],
+          ),
         ),
       ),
     );
@@ -102,7 +106,7 @@ class _DFACreateManualState extends State<DFACreateManual> {
       enabled: enableFlag,
       decoration: const InputDecoration(
         labelText: "States",
-        helperText: "Enter states separated by coma(,)",
+        helperText: "Enter states separated by comma(,)",
         border: OutlineInputBorder(),
       ),
     );
@@ -116,7 +120,7 @@ class _DFACreateManualState extends State<DFACreateManual> {
       enabled: enableFlag,
       decoration: const InputDecoration(
         labelText: "Accepting States",
-        helperText: "Enter states separated by coma(,)",
+        helperText: "Enter states separated by comma(,)",
         border: OutlineInputBorder(),
       ),
     );
@@ -150,7 +154,10 @@ class _DFACreateManualState extends State<DFACreateManual> {
                     initialState: initialStateInputController_.text,
                     dfa: widget.dfa)));
       },
-      child: const Text("Enter Transition table"),
+      child: const Padding(
+        padding: EdgeInsets.all(8.0),
+        child: Text(style: TextStyle(fontSize: 15), "Enter Transition Table"),
+      ),
     );
   }
 }

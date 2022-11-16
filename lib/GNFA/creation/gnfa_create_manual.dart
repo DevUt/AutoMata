@@ -1,6 +1,7 @@
 import 'package:automata/GNFA/creation/gnfa_enter_transition_table.dart';
 import 'package:flutter/material.dart';
 import 'package:automata/NFA/creation/nfa_enter_transition_table.dart';
+import '../../widget/helper.dart';
 
 class GNFACreateManual extends StatefulWidget {
   const GNFACreateManual({super.key});
@@ -14,7 +15,7 @@ class _GNFACreateManualState extends State<GNFACreateManual> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Manual GNFA Creation"),
+        title: amberText("Manual GNFA Creation"),
       ),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,

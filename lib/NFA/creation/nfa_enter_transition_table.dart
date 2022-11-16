@@ -4,6 +4,8 @@ import 'package:automata_library/automata_library.dart';
 import 'package:flutter/material.dart';
 import 'package:linked_scroll_controller/linked_scroll_controller.dart';
 
+import '../../widget/helper.dart';
+
 class NFAEnterTransitionTable extends StatefulWidget {
   final List<String> alphabet;
   final List<String> states;
@@ -36,7 +38,7 @@ class _NFAEnterTransitionTableState extends State<NFAEnterTransitionTable> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Transition function"),
+        title: amberText("Enter Transition function"),
         actions: [proceedButton(controllers, row, col)],
       ),
       body: Column(

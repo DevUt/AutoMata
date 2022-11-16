@@ -1,3 +1,4 @@
+import 'package:automata/widget/helper.dart';
 import 'package:automata_library/automata_library.dart';
 import 'package:flutter/material.dart';
 
@@ -26,7 +27,7 @@ class _OptionsMenuState extends State<OptionsMenu> {
 
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Operations on DFA"),
+          title: amberText("Operations on DFA"),
         ),
         body: ListView(
           children: <Widget>[
@@ -37,7 +38,7 @@ class _OptionsMenuState extends State<OptionsMenu> {
                     side: const BorderSide(color: Colors.amber, width: 1),
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  leading: const Icon(Icons.settings),
+                  leading: leadingIcon(),
                   title: const Text('Validate'),
                   subtitle: const Text("returns whether dfa is valid or not"),
                   onTap: () {
@@ -64,7 +65,7 @@ class _OptionsMenuState extends State<OptionsMenu> {
                     side: const BorderSide(color: Colors.amber, width: 1),
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  leading: const Icon(Icons.settings),
+                  leading: leadingIcon(),
                   title: const Text('Each stage transitions'),
                   subtitle: const Text(
                       "returns step wise transitions for each alphabet"),
@@ -141,7 +142,7 @@ class _OptionsMenuState extends State<OptionsMenu> {
                     side: const BorderSide(color: Colors.amber, width: 1),
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  leading: const Icon(Icons.settings),
+                  leading: leadingIcon(),
                   title: const Text('Test DFA'),
                   subtitle: const Text("Custom test inputs for your DFA"),
                   onTap: () {
@@ -217,7 +218,7 @@ class _OptionsMenuState extends State<OptionsMenu> {
                     side: const BorderSide(color: Colors.amber, width: 1),
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  leading: const Icon(Icons.settings),
+                  leading: leadingIcon(),
                   title: const Text('Check for Reachable states'),
                   subtitle:
                       const Text("Gives you the states that are reachable"),
@@ -245,7 +246,7 @@ class _OptionsMenuState extends State<OptionsMenu> {
                     side: const BorderSide(color: Colors.amber, width: 1),
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  leading: const Icon(Icons.settings),
+                  leading: leadingIcon(),
                   title: const Text('Check for Unreachable states'),
                   subtitle:
                       const Text("Gives you the states that are Unreachable"),
@@ -273,7 +274,7 @@ class _OptionsMenuState extends State<OptionsMenu> {
                     side: const BorderSide(color: Colors.amber, width: 1),
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  leading: const Icon(Icons.settings),
+                  leading: leadingIcon(),
                   title: const Text('Check for Dead states'),
                   subtitle: const Text("Gives you the states that are Dead"),
                   onTap: () {
@@ -300,7 +301,7 @@ class _OptionsMenuState extends State<OptionsMenu> {
                     side: const BorderSide(color: Colors.amber, width: 1),
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  leading: const Icon(Icons.settings),
+                  leading: leadingIcon(),
                   title: const Text('Generate Regex'),
                   subtitle: const Text(
                       "Gives you the regular expression for your DFA"),
