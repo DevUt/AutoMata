@@ -293,6 +293,34 @@ class _OptionsMenuState extends State<OptionsMenu> {
                     showDialog(context: context, builder: (context) => alert);
                   }),
             ),
+            Container(
+              margin: const EdgeInsets.all(10),
+              child: ListTile(
+                  shape: RoundedRectangleBorder(
+                    side: const BorderSide(color: Colors.amber, width: 1),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  leading: const Icon(Icons.settings),
+                  title: const Text('Generate Regex'),
+                  subtitle: const Text(
+                      "Gives you the regular expression for your DFA"),
+                  onTap: () {
+                    AlertDialog alert = AlertDialog(
+                      title: Container(
+                          margin: const EdgeInsets.fromLTRB(20, 5, 20, 1),
+                          child: const Text('Regex :-')),
+                      content: Regex(),
+                      actions: [
+                        ElevatedButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: const Text("OK"))
+                      ],
+                    );
+                    showDialog(context: context, builder: (context) => alert);
+                  }),
+            ),
           ],
         ));
   }
@@ -377,6 +405,18 @@ class _OptionsMenuState extends State<OptionsMenu> {
         unreachableState.isEmpty
             ? const Text("Empty", style: TextStyle(color: Colors.red))
             : Text(unreachableState)
+      ],
+    );
+  }
+
+  Widget Regex() {
+    String regex = GNFA.fromDFA(widget.dfaObj).regex();
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        regex.isEmpty
+            ? const Text("Empty", style: TextStyle(color: Colors.red))
+            : Text(regex)
       ],
     );
   }

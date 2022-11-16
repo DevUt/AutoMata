@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:automata/DFA/dfa.dart';
 import 'package:automata/NFA/nfa.dart';
+import 'package:automata/GNFA/gnfa.dart';
 
 void main() {
   runApp(const MyApp());
@@ -65,6 +66,20 @@ class _HomePageState extends State<HomePage> {
                             builder: (context) => const NFACreateManual()));
                   },
                   child: const Text("NFA")),
+            ),
+          ),
+          Center(
+            child: Container(
+              margin: const EdgeInsets.all(10),
+              width: 200,
+              child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const GNFACreateManual()));
+                  },
+                  child: const Text("GNFA")),
             ),
           ),
           Center(
